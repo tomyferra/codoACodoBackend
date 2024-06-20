@@ -27,7 +27,6 @@ app.get('/api/subscripcion', (req, res) => {
   res.send(subscriptoAlNewsletter)
 })
 
-
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto: ${port}`)
 })
