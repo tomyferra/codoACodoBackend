@@ -28,3 +28,52 @@ Endpoints:
 - orden de codigo
 - joins de tablas
 - ?
+
+Tabla: Propiedades
+| Field         | Tipo   |
+|---------------|--------|
+| id            | Int    |
+| foto1         | String |
+| foto2         | String |
+| foto3         | String |
+| titulo        | String |
+| fotoAlt       | String |
+| descripcion   | String |
+| habitaciones  | Int    |
+| tipo          | String |
+| metros        | Int    |
+| precio        | Int    |
+| operacion     | String |
+| ubicacion_id  | Int    |
+| propietario_id| Int    |
+
+
+Tabla: Alquiler
+| Field        | Tipo   |
+|--------------|--------|
+| id           | Int    |
+| propiedad_id | Int    |
+
+
+Tabla: Venta
+| Field        | Tipo   |
+|--------------|--------|
+| id           | Int    |
+| propiedad_id | Int    |
+
+
+Tabla: Propietarios
+| Field    | Tipo   |
+|----------|--------|
+| id       | Int    |
+| nombre   | String |
+| apellido | String |
+| correo   | String |
+| telefono | Int    |
+
+
+Tabla: Ubicaciones
+| Field  | Tipo   |
+|--------|--------|
+| id     | Int    |
+| nombre | String |

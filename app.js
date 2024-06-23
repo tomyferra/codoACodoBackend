@@ -39,7 +39,7 @@ app.get('/api/alquiler', async (req, res) => {
   try {
     const rol = req.query.rol
     const connection = await pool.getConnection()
-    const [rows] = await connection.query('SELECT * FROM Alquiler') //aca deberia ir un join de las propiedades la tabla de alquiler
+    const [rows] = await connection.query('SELECT * FROM Propiedades JOIN Alquiler ON Alquiler.propiedad_id = Propiedades.id') //aca deberia ir un join de las propiedades la tabla de alquiler
     console.log('Propiedades en Alquiler--> ', rows)
     connection.release()
 
@@ -55,7 +55,7 @@ app.get('/api/venta', async (req, res) => {
   try {
     const rol = req.query.rol
     const connection = await pool.getConnection()
-    const [rows] = await connection.query('SELECT * FROM Venta') //aca deberia ir un join de las propiedades la tabla de venta
+    const [rows] = await connection.query('SELECT * FROM Propiedades JOIN Venta ON Venta.propiedad_id = Propiedades.id') //aca deberia ir un join de las propiedades la tabla de venta
     console.log('Propiedades en Venta--> ', rows)
     connection.release()
 
@@ -215,7 +215,7 @@ app.listen(port, () => {
 
 // SQL command to create the table
 const executeQuery = `
-DELETE FROM Ubicaciones WHERE nombre='test';
+DESCRIBE Propiedades
 
 `;
 
