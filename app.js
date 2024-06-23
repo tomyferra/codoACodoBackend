@@ -1,9 +1,8 @@
+import cors from 'cors';
 import express from 'express';
 import path from 'path';
-import cors from 'cors';
-import pool from './config/db.js'
-import { propiedadesEnVenta, propiedadesEnAlquiler, subscriptoAlNewsletter } from './datos.js'
-import { fileURLToPath } from 'url' // To handle __dirname with ES6 modules
+import { fileURLToPath } from 'url'; // To handle __dirname with ES6 modules
+import pool from './config/db.js';
 
 const app = express()
 
