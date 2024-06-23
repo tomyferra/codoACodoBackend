@@ -1,9 +1,8 @@
+import cors from 'cors';
 import express from 'express';
 import path from 'path';
-import cors from 'cors';
-import pool from './config/db.js'
-import { propiedadesEnVenta, propiedadesEnAlquiler, subscriptoAlNewsletter } from './datos.js'
-import { fileURLToPath } from 'url' // To handle __dirname with ES6 modules
+import { fileURLToPath } from 'url'; // To handle __dirname with ES6 modules
+import pool from './config/db.js';
 
 const app = express()
 
@@ -39,7 +38,7 @@ app.get('/api/alquiler', async (req, res) => {
   try {
     const rol = req.query.rol
     const connection = await pool.getConnection()
-    const [rows] = await connection.query('SELECT * FROM Alquiler') //aca deberia ir un join de las propiedades la tabla de alquiler
+    const [rows] = await connection.query('SELECT * FROM Alquiler JOIN Alquiler.id = Propiedades.id') //aca deberia ir un join de las propiedades la tabla de alquiler
     console.log('Propiedades en Alquiler--> ', rows)
     connection.release()
 
@@ -55,7 +54,7 @@ app.get('/api/venta', async (req, res) => {
   try {
     const rol = req.query.rol
     const connection = await pool.getConnection()
-    const [rows] = await connection.query('SELECT * FROM Venta') //aca deberia ir un join de las propiedades la tabla de venta
+    const [rows] = await connection.query('SELECT * FROM Venta Venta.id = Propiedades.id') //aca deberia ir un join de las propiedades la tabla de venta
     console.log('Propiedades en Venta--> ', rows)
     connection.release()
 
