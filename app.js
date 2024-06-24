@@ -293,7 +293,7 @@ app.listen(port, () => {
 
 // SQL command to create the table
 const executeQuery = `
-SHOW Alquiler
+DESCRIBE Propiedades
 
 `;
 

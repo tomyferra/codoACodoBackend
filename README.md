@@ -33,17 +33,17 @@ Tabla: Propiedades
 | Field         | Tipo   |
 |---------------|--------|
 | id            | Int    |
-| foto1         | String |
-| foto2         | String |
-| foto3         | String |
-| titulo        | String |
-| fotoAlt       | String |
-| descripcion   | String |
+| foto1         | String | varchar(255)
+| foto2         | String | varchar(255)
+| foto3         | String | varchar(255)
+| titulo        | String | varchar(255)
+| fotoAlt       | String | varchar(255)
+| descripcion   | String | text
 | habitaciones  | Int    |
-| tipo          | String |
-| metros        | Int    |
-| precio        | Int    |
-| operacion     | String |
+| tipo          | String | varchar(255)
+| metros        | Int    | decimal(10,2)
+| precio        | Int    | decimal(10,2)
+| operacion     | String | varchar(255)
 | ubicacion_id  | Int    |
 | propietario_id| Int    |
 
@@ -66,14 +66,14 @@ Tabla: Propietarios
 | Field    | Tipo   |
 |----------|--------|
 | id       | Int    |
-| nombre   | String |
-| apellido | String |
-| correo   | String |
-| telefono | Int    |
+| nombre   | String | varchar(255)
+| apellido | String | varchar(255)
+| correo   | String | varchar(255)
+| telefono | Int    | varchar(50)
 
 
 Tabla: Ubicaciones
 | Field  | Tipo   |
 |--------|--------|
 | id     | Int    |
-| nombre | String |
+| nombre | String | varchar(255)
