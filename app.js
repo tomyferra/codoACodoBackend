@@ -95,8 +95,6 @@ app.get('/api/ubicaciones', async (req, res) => {
   }
 })
 
-
-
 // ################################################################################
 // ################################################################################
 // ################################################################################
@@ -124,12 +122,32 @@ app.post('/api/propiedades', async (req, res) => {
 // Route to insert data into the table PropiedadesAlquiler
 app.post('/api/alquiler', async (req, res) => {
   const { propiedad_id } = req.body;
+  const checkAlquiler = `
+    SELECT 1 FROM Alquiler WHERE propiedad_id = ?;
+  `;
+  const checkPropiedad = `
+    SELECT 1 FROM Propiedades WHERE id = ?;
+  `;
   const insertQuery = `
     INSERT INTO Alquiler (propiedad_id)
     VALUES (?)
   `;
   try {
     const connection = await pool.getConnection();
+
+    // Verificar si el campo propiedad_id ya existe en la tabla
+    const [rows] = await connection.query(checkAlquiler, [propiedad_id]);
+    if (rows.length > 0) {
+      connection.release();
+      console.log('La propiedad ya existe en alquiler');
+      return res.status(409).json({ message: 'La propiedad ya existe en alquiler' });
+    }
+    const [propiedad] = await connection.query(checkPropiedad, [propiedad_id]);
+    if (propiedad.length == 0) {
+      connection.release();
+      console.log('La propiedad no existe');
+      return res.status(409).json({ message: 'La propiedad no existe' });
+    }
     await connection.query(insertQuery, [propiedad_id]);
     connection.release();
     console.log('Propiedad inserted successfully');
@@ -143,12 +161,32 @@ app.post('/api/alquiler', async (req, res) => {
 // Route to insert data into the table PropiedadesAlquiler
 app.post('/api/venta', async (req, res) => {
   const { propiedad_id } = req.body;
+  const checkQuery = `
+    SELECT 1 FROM Venta WHERE propiedad_id = ?;
+  `;
+  const checkPropiedad = `
+    SELECT 1 FROM Propiedades WHERE id = ?;
+  `;
   const insertQuery = `
     INSERT INTO Venta (propiedad_id)
     VALUES (?)
   `;
   try {
     const connection = await pool.getConnection();
+
+    // Verificar si el campo propiedad_id ya existe en la tabla
+    const [rows] = await connection.query(checkQuery, [propiedad_id]);
+    if (rows.length > 0) {
+      connection.release();
+      console.log('La propiedad ya existe en venta');
+      return res.status(409).json({ message: 'La propiedad ya existe en venta' });
+    }
+    const [propiedad] = await connection.query(checkPropiedad, [propiedad_id]);
+    if (propiedad.length == 0) {
+      connection.release();
+      console.log('La propiedad no existe');
+      return res.status(409).json({ message: 'La propiedad no existe' });
+    }
     await connection.query(insertQuery, [propiedad_id]);
     connection.release();
     console.log('Propiedad inserted successfully');
@@ -197,8 +235,49 @@ app.post('/api/ubicaciones', async (req, res) => {
   }
 });
 
+// ################################################################################
+// ################################################################################
+// ################################################################################
 
+// Metodo para remover de la tabla de Alquiler una propiedad (por que ya fue alquilada)
+app.delete('/api/alquiler/borrar/:id', async (req, res) => {
+  const { id } = req.params;
+  const insertQuery = `
+  DELETE FROM Alquiler
+  WHERE propiedad_id = ?;
+  `;
+  try {
+    const connection = await pool.getConnection();
+    await connection.query(insertQuery, [id]);
+    connection.release();
+    res.json({ message: 'Id successfully deleted' });
+  } catch (err) {
+    console.error('Error when deleting Id: ', err);
+    res.sendStatus(500);
+  }
+});
 
+// Metodo para remover de la tabla de Ventas una propiedad (por que ya fue vendida)
+app.delete('/api/venta/borrar/:id', async (req, res) => {
+  const { id } = req.params;
+  const insertQuery = `
+  DELETE FROM Venta
+  WHERE propiedad_id = ?;
+  `;
+  try {
+    const connection = await pool.getConnection();
+    await connection.query(insertQuery, [id]);
+    connection.release();
+    res.json({ message: 'Id successfully deleted' });
+  } catch (err) {
+    console.error('Error when deleting Id: ', err);
+    res.sendStatus(500);
+  }
+});
+
+// ################################################################################
+// ################################################################################
+// ################################################################################
 
 
 app.listen(port, () => {
@@ -214,7 +293,7 @@ app.listen(port, () => {
 
 // SQL command to create the table
 const executeQuery = `
-DESCRIBE Propiedades
+SHOW Alquiler
 
 `;
 
