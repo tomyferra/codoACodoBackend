@@ -44,71 +44,182 @@ El servidor se iniciará en `http://localhost:3000` (o el puerto que se haya con
 
 ## Endpoints
 
-### Propiedades
+### 1. Obtener Todas las Propiedades
 
 - **URL**: `/api/propiedades`
-- **Métodos**: GET, POST
-- **Descripción**: Obtener todas las propiedades o crear una nueva.
+- **Método**: GET
+- **Descripción**: Recupera todas las propiedades de la base de datos.
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: Array de objetos de propiedad
 
-#### GET
-Retorna todas las propiedades.
-
-#### POST
-Crea una nueva propiedad. Enviar los datos en el cuerpo de la solicitud.
-
-### Alquiler
+### 2. Obtener Propiedades en Alquiler
 
 - **URL**: `/api/alquiler`
-- **Métodos**: GET, POST
-- **Descripción**: Obtener todas las propiedades en alquiler o agregar una nueva.
+- **Método**: GET
+- **Descripción**: Recupera todas las propiedades en alquiler, realizando un join con la tabla Propiedades.
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: Array de objetos de propiedad en alquiler
 
-#### GET
-Retorna todas las propiedades en alquiler.
-
-#### POST
-Agrega una nueva propiedad en alquiler. Enviar los datos en el cuerpo de la solicitud.
-
-### Venta
+### 3. Obtener Propiedades en Venta
 
 - **URL**: `/api/venta`
-- **Métodos**: GET, POST
-- **Descripción**: Obtener todas las propiedades en venta o agregar una nueva.
+- **Método**: GET
+- **Descripción**: Recupera todas las propiedades en venta, realizando un join con la tabla Propiedades.
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: Array de objetos de propiedad en venta
 
-#### GET
-Retorna todas las propiedades en venta.
-
-#### POST
-Agrega una nueva propiedad en venta. Enviar los datos en el cuerpo de la solicitud.
-
-### Propietarios
+### 4. Obtener Propietarios
 
 - **URL**: `/api/propietarios`
-- **Métodos**: GET, POST
-- **Descripción**: Obtener todos los propietarios o agregar uno nuevo.
+- **Método**: GET
+- **Descripción**: Recupera todos los propietarios de la base de datos.
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: Array de objetos de propietario
 
-#### GET
-Retorna todos los propietarios.
-
-#### POST
-Agrega un nuevo propietario. Enviar los datos en el cuerpo de la solicitud.
-
-### Ubicaciones
+### 5. Obtener Ubicaciones
 
 - **URL**: `/api/ubicaciones`
-- **Métodos**: GET, POST
-- **Descripción**: Obtener todas las ubicaciones o agregar una nueva.
+- **Método**: GET
+- **Descripción**: Recupera todas las ubicaciones de la base de datos.
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: Array de objetos de ubicación
 
-#### GET
-Retorna todas las ubicaciones.
+### 6. Crear Propiedad
 
-#### POST
-Agrega una nueva ubicación. Enviar los datos en el cuerpo de la solicitud.
+- **URL**: `/api/propiedades`
+- **Método**: POST
+- **Descripción**: Crea una nueva propiedad en la base de datos.
+- **Cuerpo de la Solicitud**:
+  ```json
+  {
+    "foto1": "string",
+    "foto2": "string",
+    "foto3": "string",
+    "titulo": "string",
+    "fotoAlt": "string",
+    "descripcion": "string",
+    "habitaciones": "number",
+    "tipo": "string",
+    "metros": "number",
+    "precio": "number",
+    "operacion": "string",
+    "ubicacion_id": "number",
+    "propietario_id": "number"
+  }
+  ```
+- **Respuesta**: 
+  - Código de estado: 201 Created
+  - Cuerpo: `{ "message": "Propiedad inserted successfully" }`
 
-### Ejecutar Consulta SQL
+### 7. Agregar Propiedad en Alquiler
+
+- **URL**: `/api/alquiler`
+- **Método**: POST
+- **Descripción**: Agrega una propiedad existente a la lista de alquiler.
+- **Cuerpo de la Solicitud**:
+  ```json
+  {
+    "propiedad_id": "number"
+  }
+  ```
+- **Respuesta**: 
+  - Código de estado: 201 Created
+  - Cuerpo: `{ "message": "Propiedad inserted successfully" }`
+- **Errores**:
+  - 409 Conflict: Si la propiedad ya existe en alquiler o no existe en la tabla Propiedades
+
+### 8. Agregar Propiedad en Venta
+
+- **URL**: `/api/venta`
+- **Método**: POST
+- **Descripción**: Agrega una propiedad existente a la lista de venta.
+- **Cuerpo de la Solicitud**:
+  ```json
+  {
+    "propiedad_id": "number"
+  }
+  ```
+- **Respuesta**: 
+  - Código de estado: 201 Created
+  - Cuerpo: `{ "message": "Propiedad inserted successfully" }`
+- **Errores**:
+  - 409 Conflict: Si la propiedad ya existe en venta o no existe en la tabla Propiedades
+
+### 9. Crear Propietario
+
+- **URL**: `/api/propietarios`
+- **Método**: POST
+- **Descripción**: Crea un nuevo propietario en la base de datos.
+- **Cuerpo de la Solicitud**:
+  ```json
+  {
+    "nombre": "string",
+    "apellido": "string",
+    "correo": "string",
+    "telefono": "string"
+  }
+  ```
+- **Respuesta**: 
+  - Código de estado: 201 Created
+  - Cuerpo: `{ "message": "Propietario inserted successfully" }`
+
+### 10. Crear Ubicación
+
+- **URL**: `/api/ubicaciones`
+- **Método**: POST
+- **Descripción**: Crea una nueva ubicación en la base de datos.
+- **Cuerpo de la Solicitud**:
+  ```json
+  {
+    "nombre": "string"
+  }
+  ```
+- **Respuesta**: 
+  - Código de estado: 201 Created
+  - Cuerpo: `{ "message": "Ubicacion inserted successfully" }`
+
+### 11. Eliminar Propiedad de Alquiler
+
+- **URL**: `/api/alquiler/borrar/:id`
+- **Método**: DELETE
+- **Descripción**: Elimina una propiedad de la lista de alquiler.
+- **Parámetros**: 
+  - `id` (parámetro de ruta): El ID de la propiedad a eliminar de alquiler
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "Id successfully deleted" }`
+
+### 12. Eliminar Propiedad de Venta
+
+- **URL**: `/api/venta/borrar/:id`
+- **Método**: DELETE
+- **Descripción**: Elimina una propiedad de la lista de venta.
+- **Parámetros**: 
+  - `id` (parámetro de ruta): El ID de la propiedad a eliminar de venta
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "Id successfully deleted" }`
+
+### 13. Ejecutar Consulta SQL (Desarrollo)
 
 - **URL**: `/executeQuery`
 - **Método**: POST
-- **Descripción**: Ejecuta comandos SQL para modificar tablas.
+- **Descripción**: Ejecuta una consulta SQL predefinida (actualmente describe la tabla Propiedades).
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "query executed successfully" }`
+
+## Notas Adicionales
+
+- La API utiliza una base de datos MySQL.
+- Se implementa CORS para permitir solicitudes desde cualquier origen.
+- Los errores se manejan devolviendo un código de estado 500 en caso de fallos en la base de datos.
+- La API está configurada para ejecutarse en el puerto 3000.
 
 ## Estructura de Datos
 
