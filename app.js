@@ -280,6 +280,91 @@ app.delete('/api/venta/borrar/:id', async (req, res) => {
 // ################################################################################
 
 
+// Route to update data in the table Propiedades
+app.put('/api/propiedades/:id', async (req, res) => {
+  const { id } = req.params;
+  const { foto1, foto2, foto3, titulo, fotoAlt, descripcion, habitaciones, tipo, metros, precio, operacion, ubicacion_id, propietario_id } = req.body;
+  const updateQuery = `
+    UPDATE Propiedades
+    SET foto1 = ?, foto2 = ?, foto3 = ?, titulo = ?, fotoAlt = ?, descripcion = ?, habitaciones = ?, tipo = ?, metros = ?, precio = ?, operacion = ?, ubicacion_id = ?, propietario_id = ?
+    WHERE id = ?
+  `;
+  try {
+    const connection = await pool.getConnection();
+    await connection.query(updateQuery, [foto1, foto2, foto3, titulo, fotoAlt, descripcion, habitaciones, tipo, metros, precio, operacion, ubicacion_id, propietario_id, id]);
+    connection.release();
+    console.log('Propiedad updated successfully');
+    res.json({ message: 'Propiedad updated successfully' });
+  } catch (err) {
+    console.error('Error updating Propiedad: ', err);
+    res.sendStatus(500);
+  }
+});
+
+
+// Route to update data in the table Propietarios
+app.put('/api/propietarios/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre, apellido, correo, telefono } = req.body;
+  const updateQuery = `
+    UPDATE Propietarios
+    SET nombre = ?, apellido = ?, correo = ?, telefono = ?
+    WHERE id = ?
+  `;
+  try {
+    const connection = await pool.getConnection();
+    await connection.query(updateQuery, [nombre, apellido, correo, telefono, id]);
+    connection.release();
+    console.log('Propietario updated successfully');
+    res.json({ message: 'Propietario updated successfully' });
+  } catch (err) {
+    console.error('Error updating Propietario: ', err);
+    res.sendStatus(500);
+  }
+});
+
+
+
+// Route to update data in the table Propiedades with PATCH
+app.patch('/api/propiedades/:id', async (req, res) => {
+  const { id } = req.params;
+  const allowedFields = ['foto1', 'foto2', 'foto3', 'titulo', 'fotoAlt', 'descripcion', 'habitaciones', 'tipo', 'metros', 'precio', 'operacion', 'ubicacion_id', 'propietario_id'];
+  const updates = Object.keys(req.body)
+    .filter(key => allowedFields.includes(key))
+    .map(key => `${key} = ?`);
+
+  const values = Object.values(req.body);
+
+  if (updates.length === 0) {
+    return res.status(400).json({ message: 'No valid fields provided for update' });
+  }
+
+  const updateQuery = `
+    UPDATE Propiedades
+    SET ${updates.join(', ')}
+    WHERE id = ?
+  `;
+
+  values.push(id);
+
+  try {
+    const connection = await pool.getConnection();
+    await connection.query(updateQuery, values);
+    connection.release();
+    console.log('Propiedad updated successfully');
+    res.json({ message: 'Propiedad updated successfully' });
+  } catch (err) {
+    console.error('Error updating Propiedad: ', err);
+    res.sendStatus(500);
+  }
+});
+
+
+// ################################################################################
+// ################################################################################
+// ################################################################################
+
+
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto: ${port}`)
 })
