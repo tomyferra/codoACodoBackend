@@ -205,7 +205,43 @@ El servidor se iniciará en `http://localhost:3000` (o el puerto que se haya con
   - Código de estado: 200 OK
   - Cuerpo: `{ "message": "Id successfully deleted" }`
 
-### 13. Ejecutar Consulta SQL (Desarrollo)
+### 13. Actualizar Propiedad
+
+- **URL**: `/api/propiedades/:id`
+- **Método**: PUT
+- **Descripción**: Actualiza una propiedad existente en la base de datos.
+- **Parámetros**: 
+  - `id` (parámetro de ruta): El ID de la propiedad a actualizar
+- **Cuerpo de la Solicitud**: Todos los campos de la propiedad
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "Propiedad updated successfully" }`
+
+### 14. Actualizar Propietario
+
+- **URL**: `/api/propietarios/:id`
+- **Método**: PUT
+- **Descripción**: Actualiza un propietario existente en la base de datos.
+- **Parámetros**: 
+  - `id` (parámetro de ruta): El ID del propietario a actualizar
+- **Cuerpo de la Solicitud**: Todos los campos del propietario
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "Propietario updated successfully" }`
+
+### 15. Actualizar Parcialmente Propiedad
+
+- **URL**: `/api/propiedades/:id`
+- **Método**: PATCH
+- **Descripción**: Actualiza parcialmente una propiedad existente.
+- **Parámetros**: 
+  - `id` (parámetro de ruta): El ID de la propiedad a actualizar
+- **Cuerpo de la Solicitud**: Campos a actualizar de la propiedad
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "Propiedad updated successfully" }`
+
+### 16. Ejecutar Consulta SQL (Desarrollo)
 
 - **URL**: `/executeQuery`
 - **Método**: POST
