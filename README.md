@@ -1,8 +1,9 @@
 # Backend codo a codo 2024 Grupo 1
--  Facundo Tognola
--  Esmir Cáceres
--  Tomás Ferrari
--  Sebastián G. Gil
+
+- Facundo Tognola
+- Esmir Cáceres
+- Tomás Ferrari
+- Sebastián G. Gil
 
 Backend para sitio web hosteado en: https://sgninja.github.io/JS_G1/
 
@@ -21,6 +22,7 @@ Esta API proporciona endpoints para gestionar propiedades inmobiliarias, incluye
   - [Propietarios](#propietarios)
   - [Ubicaciones](#ubicaciones)
   - [Ejecutar Consulta SQL](#ejecutar-consulta-sql)
+- [Notas Adicionales](#notas-adicionales)
 - [Estructura de Datos](#estructura-de-datos)
 - [Tablas de la Base de Datos](#tablas-de-la-base-de-datos)
 
