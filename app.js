@@ -324,7 +324,6 @@ app.put('/api/propietarios/:id', async (req, res) => {
 });
 
 
-
 // Route to update data in the table Propiedades with PATCH
 app.patch('/api/propiedades/:id', async (req, res) => {
   const { id } = req.params;
