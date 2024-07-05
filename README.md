@@ -1,8 +1,9 @@
 # Backend codo a codo 2024 Grupo 1
--  Facundo Tognola
--  Esmir Cáceres
--  Tomás Ferrari
--  Sebastián G. Gil
+
+- Facundo Tognola
+- Esmir Cáceres
+- Tomás Ferrari
+- Sebastián G. Gil
 
 Backend para sitio web hosteado en: https://sgninja.github.io/JS_G1/
 
@@ -15,14 +16,30 @@ Esta API proporciona endpoints para gestionar propiedades inmobiliarias, incluye
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [Endpoints](#endpoints)
-  - [Propiedades](#propiedades)
-  - [Alquiler](#alquiler)
-  - [Venta](#venta)
-  - [Propietarios](#propietarios)
-  - [Ubicaciones](#ubicaciones)
-  - [Ejecutar Consulta SQL](#ejecutar-consulta-sql)
+  - [1. Obtener Todas las Propiedades](#1-obtener-todas-las-propiedades)
+  - [2. Obtener Propiedades en Alquiler](#2-obtener-propiedades-en-alquiler)
+  - [3. Obtener Propiedades en Venta](#3-obtener-propiedades-en-venta)
+  - [4. Obtener Propietarios](#4-obtener-propietarios)
+  - [5. Obtener Ubicaciones](#5-obtener-ubicaciones)
+  - [6. Crear Propiedad](#6-crear-propiedad)
+  - [7. Agregar Propiedad en Alquiler](#7-agregar-propiedad-en-alquiler)
+  - [8. Agregar Propiedad en Venta](#8-agregar-propiedad-en-venta)
+  - [9. Crear Propietario](#9-crear-propietario)
+  - [10. Crear Ubicación](#10-crear-ubicación)
+  - [11. Eliminar Propiedad de Alquiler](#11-eliminar-propiedad-de-alquiler)
+  - [12. Eliminar Propiedad de Venta](#12-eliminar-propiedad-de-venta)
+  - [13. Actualizar Propiedad](#13-actualizar-propiedad)
+  - [14. Actualizar Propietario](#14-actualizar-propietario)
+  - [15. Actualizar Parcialmente Propiedad](#15-actualizar-parcialmente-propiedad)
+  - [16. Ejecutar Consulta SQL (Desarrollo)](#16-ejecutar-consulta-sql-desarrollo)
+- [Notas Adicionales](#notas-adicionales)
 - [Estructura de Datos](#estructura-de-datos)
 - [Tablas de la Base de Datos](#tablas-de-la-base-de-datos)
+  - [Alquiler](#alquiler)
+  - [Venta](#venta)
+  - [Propiedades](#propiedades)
+  - [Propietarios](#propietarios)
+  - [Ubicaciones](#ubicaciones)
 
 ## Instalación
 
@@ -205,7 +222,43 @@ El servidor se iniciará en `http://localhost:3000` (o el puerto que se haya con
   - Código de estado: 200 OK
   - Cuerpo: `{ "message": "Id successfully deleted" }`
 
-### 13. Ejecutar Consulta SQL (Desarrollo)
+### 13. Actualizar Propiedad
+
+- **URL**: `/api/propiedades/:id`
+- **Método**: PUT
+- **Descripción**: Actualiza una propiedad existente en la base de datos.
+- **Parámetros**: 
+  - `id` (parámetro de ruta): El ID de la propiedad a actualizar
+- **Cuerpo de la Solicitud**: Todos los campos de la propiedad
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "Propiedad updated successfully" }`
+
+### 14. Actualizar Propietario
+
+- **URL**: `/api/propietarios/:id`
+- **Método**: PUT
+- **Descripción**: Actualiza un propietario existente en la base de datos.
+- **Parámetros**: 
+  - `id` (parámetro de ruta): El ID del propietario a actualizar
+- **Cuerpo de la Solicitud**: Todos los campos del propietario
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "Propietario updated successfully" }`
+
+### 15. Actualizar Parcialmente Propiedad
+
+- **URL**: `/api/propiedades/:id`
+- **Método**: PATCH
+- **Descripción**: Actualiza parcialmente una propiedad existente.
+- **Parámetros**: 
+  - `id` (parámetro de ruta): El ID de la propiedad a actualizar
+- **Cuerpo de la Solicitud**: Campos a actualizar de la propiedad
+- **Respuesta**: 
+  - Código de estado: 200 OK
+  - Cuerpo: `{ "message": "Propiedad updated successfully" }`
+
+### 16. Ejecutar Consulta SQL (Desarrollo)
 
 - **URL**: `/executeQuery`
 - **Método**: POST
